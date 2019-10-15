@@ -12,6 +12,7 @@
 <% end %>
 <p>Grand Total: <%= number_to_currency(cart.grand_total) %></p>
 
+<h2>Shipping Info: </h2>
 <center>
   <%= form_tag "/orders/:order_id", method: :post do %>
     <%= label_tag :customer_name %>

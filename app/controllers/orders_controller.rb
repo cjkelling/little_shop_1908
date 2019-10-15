@@ -8,6 +8,7 @@ class OrdersController < ApplicationController
       cart.contents.each do |item, quantity|
         ItemOrder.create(item_id: item.to_i, order_id: order.id, quantity: quantity, price: Item.find(item.to_i).price.to_f)
       end
+      session.delete(:cart)
       redirect_to "/orders/#{order.id}"
     else
       flash.now[:error] = order.errors.full_messages.to_sentence
