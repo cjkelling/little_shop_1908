@@ -1,4 +1,4 @@
-class Merchant <ApplicationRecord
+class Merchant < ApplicationRecord
   has_many :items, dependent: :destroy
 
   validates_presence_of :name,
@@ -7,15 +7,13 @@ class Merchant <ApplicationRecord
                         :state,
                         :zip
 
-  validates_length_of :zip, :is => 5
+  validates_length_of :zip, is: 5
   validates :zip, numericality: true
 
   def has_orders?
     arr = []
     items.each do |item|
-      if item.item_orders.count > 0
-        arr << false
-      end
+      arr << false if item.item_orders.count > 0
     end
     arr.include?(false)
   end
@@ -34,5 +32,13 @@ class Merchant <ApplicationRecord
       cities_arr << item.orders.distinct.pluck(:customer_city)
     end
     cities_arr.flatten
+  end
+
+  def top_items
+    hash = {}
+    items.each do |item|
+      hash[item.name] = item.average_review_rating
+    end
+    hash.sort.flatten.values_at(0, 2, 4).to_sentence
   end
 end

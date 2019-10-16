@@ -6,7 +6,7 @@
   <% cart.all_items.each do |item| %>
     <section id="cart-<%= item.id %>">
       <img src= <%= item.image %>>
-      <p>Name: <%= item.name %></p>
+      <p>Name: <%=link_to item.name, "/items/#{item.id}"%></p>
       <p>Sold By: <%= link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
       <p>Price: <%= number_to_currency(item.price) %></p>
       <p>Count: <%= cart.item_count(item.id) %></p>

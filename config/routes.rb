@@ -32,4 +32,5 @@ Rails.application.routes.draw do
   get '/checkout', to: "orders#new"
   post "/orders/:order_id", to: "orders#create"
   get "/orders/:order_id", to: "orders#show"
+  get "/verified_order", to: "orders#verified_order"
 end

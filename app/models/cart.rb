@@ -24,12 +24,10 @@ class Cart
     Item.find(item_id).price * @contents[item_id.to_s]
   end
 
-  def grand_total # refactor w/ inject, reduce
-    total = 0
-    @contents.each do |k, _v|
-      total += subtotal(k)
+  def grand_total
+    @contents.sum do |item_id, quantity|
+      Item.find(item_id).price * quantity
     end
-    total
   end
 
   def add_item(item_id)

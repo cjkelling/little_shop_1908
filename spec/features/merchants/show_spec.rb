@@ -72,5 +72,20 @@ RSpec.describe 'merchant show page', type: :feature do
       expect(page).to have_content('Average Price of Items: $40.00')
       expect(page).to have_content('Distinct Cities Where Items Have Been Ordered: Denver and Orlando')
     end
+
+    it 'shows top 3 rated items' do
+      chain = @bike_shop.items.create!(name: 'Chain', description: "It'll never break!", price: 50, image: 'https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588', inventory: 2)
+      tire = @bike_shop.items.create!(name: 'Tire', description: 'This is a tire.', price: 30, image: 'https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588', inventory: 7)
+      lock = @bike_shop.items.create!(name: 'Lock', description: 'This is a lock.', price: 15, image: 'https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588', inventory: 5)
+      helmet = @bike_shop.items.create!(name: 'Helmet', description: 'This is a helmet.', price: 35, image: 'https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588', inventory: 5)
+      review_1 = chain.reviews.create(title: "Awesome", content: "Really really awesome", rating: 5)
+      review_2 = tire.reviews.create(title: "Not Great", content: "Stinks a lot", rating: 1)
+      review_3 = lock.reviews.create(title: "Mediocre", content: "What can I say? Gets the job done I guess.", rating: 3)
+      review_4 = helmet.reviews.create(title: "Mediocre", content: "What can I say? Gets the job done I guess.", rating: 4)
+
+      visit "/merchants/#{@bike_shop.id}"
+
+      expect(page).to have_content('Top 3 Highest Rated Items: Chain, Helmet, and Lock')
+    end
   end
 end

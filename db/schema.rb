@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20191014171944) do
     t.string "customer_city"
     t.string "customer_state"
     t.integer "customer_zip"
+    t.bigint "order_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

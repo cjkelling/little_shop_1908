@@ -6,6 +6,7 @@ class CreateOrders < ActiveRecord::Migration[5.1]
       t.string :customer_city
       t.string :customer_state
       t.integer :customer_zip
+      t.bigint :order_number
       t.timestamps
     end
   end

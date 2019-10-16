@@ -14,6 +14,13 @@
       <%= link_to "All Items", "/items"%>
       <%= link_to "Cart (#{cart.count})", '/cart' %>
     </nav>
+
+    <%= form_tag '/verified_order', method: :get do %>
+      <%= label_tag :search %>
+      <%= text_field_tag(:search, params[:search]) %>
+      <%= submit_tag 'Search for Order' %>
+    <% end %>
+
     <% flash.each do |type, message| %>
       <p><%= message %></p>
     <% end %>

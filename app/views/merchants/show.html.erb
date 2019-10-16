@@ -7,7 +7,7 @@
 <ul><%= link_to "Delete Merchant", "/merchants/#{@merchant.id}", method: :delete unless @merchant.has_orders? %></ul>
 
 <h2>Statistics</h2>
-
+<p>Top 3 Highest Rated Items: <%= @merchant.top_items %> </p>
 <p>Count of Items: <%= @merchant.count_of_items %></p>
 <p>Average Price of Items: <%= number_to_currency(@merchant.average_price) %></p>
 <p>Distinct Cities Where Items Have Been Ordered: <%= @merchant.distinct_cities.to_sentence %></p>
