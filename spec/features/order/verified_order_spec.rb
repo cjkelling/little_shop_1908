@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Search bar to find order show page', type: :feature do
+RSpec.describe 'Verified Order Page', type: :feature do
   before(:each) do
     @bike_shop = Merchant.create!(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203)
     @chain = @bike_shop.items.create!(name: 'Chain', description: "It'll never break!", price: 50, image: 'https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588', inventory: 5)
@@ -14,7 +14,7 @@ RSpec.describe 'Search bar to find order show page', type: :feature do
     fill_in 'Search', with: '1234567890'
     click_button 'Search for Order'
 
-    expect(current_path).to eq("/verified_order")
+    expect(current_path).to eq('/verified_order')
 
     fill_in 'search', with: '1234560'
     click_button 'Search for Order'
@@ -22,5 +22,34 @@ RSpec.describe 'Search bar to find order show page', type: :feature do
     expect(page).to have_content('Order not found')
 
     expect(current_path).to eq('/items')
+  end
+
+  it 'can delete a found order' do
+    visit '/items'
+
+    fill_in 'Search', with: '1234567890'
+    click_button 'Search for Order'
+
+    click_link 'Delete Order'
+
+    fill_in 'Search', with: '1234567890'
+    click_button 'Search for Order'
+
+    expect(page).to have_content('Order not found')
+  end
+
+  it 'can delete items from the order' do
+    visit '/items'
+
+    fill_in 'Search', with: '1234567890'
+    click_button 'Search for Order'
+
+    within "#order-#{@chain.id}" do
+      click_link 'Remove Item From Order'
+    end
+
+    expect(current_path).to eq('/orders')
+
+    expect(page).to_not have_content("#{@chain.name}")
   end
 end

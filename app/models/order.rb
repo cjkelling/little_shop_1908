@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  has_many :item_orders
+  has_many :item_orders, dependent: :destroy
   has_many :items, through: :item_orders
 
   validates_presence_of :customer_name,

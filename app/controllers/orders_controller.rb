@@ -1,6 +1,10 @@
 class OrdersController < ApplicationController
   def new; end
 
+  def index
+    @orders = Order.all
+  end
+
   def create
     order = Order.create(order_params)
     order.order_number = ('%010d' % rand(10**10))
@@ -30,6 +34,12 @@ class OrdersController < ApplicationController
       flash[:error] = 'Order not found'
       redirect_to '/items'
     end
+  end
+
+  def destroy
+    order = Order.find(params[:order_id])
+    order.destroy
+    redirect_to '/items'
   end
 
   private

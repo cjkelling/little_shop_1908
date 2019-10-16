@@ -12,6 +12,7 @@ RSpec.describe 'Checkout and order pages', type: :feature do
 
     click_link 'Checkout'
   end
+
   it 'can show cart details and shipping form' do
     within "#checkout-#{@chain.id}" do
       expect(page).to have_content(@chain.name)
@@ -28,17 +29,17 @@ RSpec.describe 'Checkout and order pages', type: :feature do
     fill_in 'Customer address', with: '123 Test Drive'
     fill_in 'Customer city', with: 'Denver'
     fill_in 'Customer state', with: 'CO'
-    fill_in 'Customer zip', with: 80128
+    fill_in 'Customer zip', with: 80_128
 
     expect(page).to have_button('Create Order')
   end
 
-  it "can create and save order and redirect to order show page" do
+  it 'can create and save order and redirect to order show page' do
     fill_in 'Customer name', with: 'Joe'
     fill_in 'Customer address', with: '123 Test Drive'
     fill_in 'Customer city', with: 'Denver'
     fill_in 'Customer state', with: 'CO'
-    fill_in 'Customer zip', with: 80128
+    fill_in 'Customer zip', with: 80_128
 
     click_button 'Create Order'
 
@@ -68,7 +69,7 @@ RSpec.describe 'Checkout and order pages', type: :feature do
     expect(page).to have_content('Grand Total: $50.00')
   end
 
-  it "can display flash message when all fields are not filled" do
+  it 'can display flash message when all fields are not filled' do
     click_button 'Create Order'
 
     expect(page).to have_content("Customer name can't be blank, Customer address can't be blank, Customer city can't be blank, Customer state can't be blank, Customer zip can't be blank, Customer zip is the wrong length (should be 5 characters), and Customer zip is not a number")
