@@ -1,22 +1,28 @@
 <h1>Cart</h1>
 
-<% if cart.all_items.empty? %>
-  <p>Your cart is currently empty</p>
-<% else %>
-  <% cart.all_items.each do |item| %>
+<section class="item-cards">
+  <% if cart.all_items.empty? %>
+    <p>Your cart is currently empty</p>
+  <% else %>
+    <% cart.all_items.each do |item| %>
     <section id="cart-<%= item.id %>">
-      <img src= <%= item.image %>>
-      <p>Name: <%=link_to item.name, "/items/#{item.id}"%></p>
-      <p>Sold By: <%= link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
-      <p>Price: <%= number_to_currency(item.price) %></p>
-      <p>Count: <%= cart.item_count(item.id) %></p>
-      <%= link_to '+', "/cart/add/#{item.id}", method: :patch unless cart.inventory_limit?(item.id)  %>
-      <%= link_to '-', "/cart/subtract/#{item.id}", method: :patch %>
-      <p>Subtotal: <%= number_to_currency(cart.subtotal(item.id)) %></p>
-      <%= link_to 'Delete Item', "/cart/remove_item/#{item.id}", method: :patch %>
+      <section class="item-card">
+          <img src= <%= item.image %>>
+          <p>Name: <%=link_to item.name, "/items/#{item.id}"%></p>
+          <p>Sold By: <%= link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
+          <p>Price: <%= number_to_currency(item.price) %></p>
+          <p>Count: <%= cart.item_count(item.id) %></p>
+          <%= link_to '+', "/cart/add/#{item.id}", method: :patch unless cart.inventory_limit?(item.id)  %>
+          <%= link_to '-', "/cart/subtract/#{item.id}", method: :patch %>
+          <p>Subtotal: <%= number_to_currency(cart.subtotal(item.id)) %></p>
+          <%= link_to 'Delete Item', "/cart/remove_item/#{item.id}", method: :patch %>
+        </section>
+      </section>
+    <% end %>
+    <section class="item-card-single">
+      <p>Grand Total: <%= number_to_currency(cart.grand_total) %></p>
+      <%= link_to 'Checkout', '/checkout'%>
+      <%= link_to 'Empty Cart', "/cart", method: :delete %>
     </section>
   <% end %>
-  <p>Grand Total: <%= number_to_currency(cart.grand_total) %></p>
-  <%= link_to 'Checkout', '/checkout'%>
-  <%= link_to 'Empty Cart', "/cart", method: :delete %>
-<% end %>
+</section>
