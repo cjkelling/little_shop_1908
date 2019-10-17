@@ -1,10 +1,14 @@
-<h1 align = "center">Orders</h1>
+<h1>Orders</h1>
+
+<section class="item-cards">
   <% @orders.each do |order|%>
+    <section class="item-card-single">
       <p>Order Number: <%= link_to order.order_number, "/orders/#{order.id}" %></p>
       <p>Name: <%= order.customer_name %></p>
       <p>Address: <%= order.customer_address %></p>
       <p>City: <%= order.customer_city %></p>
       <p>State: <%= order.customer_state %></p>
       <p>Zip: <%= order.customer_zip %></p>
-      <br>
+    </section>
   <% end %>
+</section>

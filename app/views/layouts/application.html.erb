@@ -4,6 +4,7 @@
     <title>Little Shop</title>
     <%= csrf_meta_tags %>
 
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
@@ -16,11 +17,13 @@
       <%= link_to "Cart (#{cart.count})", '/cart' %>
     </nav>
 
-    <%= form_tag '/verified_order', method: :get do %>
-      <%= label_tag :search %>
-      <%= text_field_tag(:search, params[:search]) %>
-      <%= submit_tag 'Search for Order' %>
-    <% end %>
+    <section class="search-form">
+      <%= form_tag '/verified_order', method: :get do %>
+        <%= label_tag :search %>
+        <%= text_field_tag(:search, params[:search]) %>
+        <%= submit_tag 'Search for Order' %>
+      <% end %>
+    </section>
 
     <% flash.each do |type, message| %>
       <p><%= message %></p>

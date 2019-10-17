@@ -1,18 +1,24 @@
 <h1>New Order</h1>
 
-<% cart.all_items.each do |item| %>
-  <section id="checkout-<%= item.id %>">
-    <img src= <%= item.image %>>
-    <p>Name: <%= item.name %></p>
-    <p>Sold By: <%= link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
-    <p>Price: <%= number_to_currency(item.price) %></p>
-    <p>Count: <%= cart.item_count(item.id) %></p>
-    <p>Subtotal: <%= number_to_currency(cart.subtotal(item.id)) %></p>
+<section class="item-cards">
+  <% cart.all_items.each do |item| %>
+    <section id="checkout-<%= item.id %>">
+      <section class="item-card">
+        <img src= <%= item.image %>>
+        <p>Name: <%= item.name %></p>
+        <p>Sold By: <%= link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
+        <p>Price: <%= number_to_currency(item.price) %></p>
+        <p>Count: <%= cart.item_count(item.id) %></p>
+        <p>Subtotal: <%= number_to_currency(cart.subtotal(item.id)) %></p>
+      </section>
+    </section>
+  <% end %>
+  <section class="item-card">
+    <p>Grand Total: <%= number_to_currency(cart.grand_total) %></p>
   </section>
-<% end %>
-<p>Grand Total: <%= number_to_currency(cart.grand_total) %></p>
+</section>
 
-<h2>Shipping Info: </h2>
+<h1>Shipping Info: </h1>
 <center>
   <%= form_tag "/orders/:order_id", method: :post do %>
     <%= label_tag :customer_name %>

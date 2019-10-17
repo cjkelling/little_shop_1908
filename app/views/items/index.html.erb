@@ -4,9 +4,9 @@
 <% else %>
   <h1>All Items</h1>
 <% end %>
-<section class="grid-container">
+<section class="item-cards">
   <% @items.each do |item| %>
-    <section class = "grid-item" id= 'item-<%=item.id%>'>
+    <section class = "item-card" id= 'item-<%=item.id%>'>
       <h2> <%=link_to item.name, "/items/#{item.id}" %> </h2>
       <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
       <img src= <%= item.image %>>
